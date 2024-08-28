@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSeedMechanics : MonoBehaviour
 {
 
     [SerializeField] bool canPoop = false;
-    [SerializeField] bool canEat = false;
-    [SerializeField] bool buttonEat = false;         //a remplacer par l'input qui servira a interagir avec les graines
+    //[SerializeField] bool canEat = false;
     [SerializeField] int poopMeter = 0;
     [SerializeField] List<SeedMechanics> allSeeds = null;
     [SerializeField] SeedMechanics closestSeeds = null;
     [SerializeField] PoopBirdMechanic poopBirdRef = null;
 
-    public bool CanPoop => canPoop; //a utiliser pour le mode vol
+    public bool CanPoop => canPoop;
     public int PoopMeter => poopMeter;
     // Start is called before the first frame update
     void Start()
@@ -27,13 +27,13 @@ public class PlayerSeedMechanics : MonoBehaviour
     void SortByClosest()
     {
         allSeeds = allSeeds.OrderBy(_x => Vector3.Distance(transform.position, _x.transform.position)).ToList();
+        closestSeeds = allSeeds.FirstOrDefault();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canEat == true) EatSeed();
-
+        //if (canEat == true) EatSeed();
     }
     void DecrementPoop()
     {
@@ -43,25 +43,54 @@ public class PlayerSeedMechanics : MonoBehaviour
     {
         
         Physics.IgnoreLayerCollision(8, 9); //mettre le numéro du layer projectile et player)
-        allSeeds = FindObjectsOfType<SeedMechanics>().ToList();
-        SortByClosest();
-        closestSeeds = allSeeds[0];
-        canEat = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        canEat = false;
-        allSeeds.Clear();
-    }
-    void EatSeed()
-    {
-        if(buttonEat == true) //retirer cette ligne pour faire fonctionner l'input une fois mis en place
+
+
+        //allSeeds = FindObjectsOfType<SeedMechanics>().ToList();           //Taf de correntin
+        //SortByClosest();
+        //closestSeeds = allSeeds[0];
+        //canEat = true;
+
+        SeedMechanics seed = _other.GetComponent<SeedMechanics>();          // Taf revisité
+        if (seed != null)
         {
-            closestSeeds.gameObject.transform.localScale = Vector3.zero;
+            allSeeds.Add(seed);
+            SortByClosest();
+        }
+    }
+    private void OnTriggerExit(Collider _other)
+    {
+        //canEat = false;
+        //allSeeds.Clear();
+
+        SeedMechanics seed = _other.GetComponent<SeedMechanics>();
+        if (seed != null && allSeeds.Contains(seed))
+        {
+            allSeeds.Remove(seed);
+            SortByClosest();
+        }
+    }
+    public void EatSeed()
+    {
+        if (closestSeeds != null)
+        {
+            SeedMechanics _seedToRemove = closestSeeds;
+            _seedToRemove.gameObject.transform.localScale = Vector3.zero;
             poopMeter += 1;
-            closestSeeds = allSeeds[0];
-            canEat = false;
-            buttonEat = false;
+            allSeeds.Remove(_seedToRemove);
+            closestSeeds = allSeeds.Count > 0 ? allSeeds[0] : null;
+
+            //closestSeeds.gameObject.transform.localScale = Vector3.zero;
+            //closestSeeds = allSeeds[0];
+            //allSeeds.Remove(closestSeeds);
+            //canEat = false;
+        }
+    }
+
+    public void OnCollectSeed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            EatSeed();
         }
     }
 }

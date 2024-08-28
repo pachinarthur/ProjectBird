@@ -62,6 +62,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""10e6d18f-15e1-401c-a20d-43334452dc7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Rotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa2b660d-5233-429d-9c00-9dedb5d7ba12"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -221,6 +241,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""f5e71cb9-717d-4949-9d19-6a4a32b553e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd585585-bebb-4f19-a5d5-1dd02c7dee88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Poop"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f004239-0877-4d4f-a257-a070d5f33f95"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -370,6 +408,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd151944-0d20-4a12-9d8c-8fa9473bd87e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""097c389f-c462-41ac-9993-042d2d582220"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Poop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -382,6 +442,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Ground_Fly = m_Ground.FindAction("Fly", throwIfNotFound: true);
         m_Ground_Sprint = m_Ground.FindAction("Sprint", throwIfNotFound: true);
         m_Ground_Rotation = m_Ground.FindAction("Rotation", throwIfNotFound: true);
+        m_Ground_PickUp = m_Ground.FindAction("PickUp", throwIfNotFound: true);
         // Fly
         m_Fly = asset.FindActionMap("Fly", throwIfNotFound: true);
         m_Fly_Movement = m_Fly.FindAction("Movement", throwIfNotFound: true);
@@ -389,6 +450,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Fly_Land = m_Fly.FindAction("Land", throwIfNotFound: true);
         m_Fly_FlyUp = m_Fly.FindAction("FlyUp", throwIfNotFound: true);
         m_Fly_Sprint = m_Fly.FindAction("Sprint", throwIfNotFound: true);
+        m_Fly_Aim = m_Fly.FindAction("Aim", throwIfNotFound: true);
+        m_Fly_Poop = m_Fly.FindAction("Poop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -454,6 +517,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ground_Fly;
     private readonly InputAction m_Ground_Sprint;
     private readonly InputAction m_Ground_Rotation;
+    private readonly InputAction m_Ground_PickUp;
     public struct GroundActions
     {
         private @PlayerControls m_Wrapper;
@@ -462,6 +526,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Fly => m_Wrapper.m_Ground_Fly;
         public InputAction @Sprint => m_Wrapper.m_Ground_Sprint;
         public InputAction @Rotation => m_Wrapper.m_Ground_Rotation;
+        public InputAction @PickUp => m_Wrapper.m_Ground_PickUp;
         public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -483,6 +548,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rotation.started += instance.OnRotation;
             @Rotation.performed += instance.OnRotation;
             @Rotation.canceled += instance.OnRotation;
+            @PickUp.started += instance.OnPickUp;
+            @PickUp.performed += instance.OnPickUp;
+            @PickUp.canceled += instance.OnPickUp;
         }
 
         private void UnregisterCallbacks(IGroundActions instance)
@@ -499,6 +567,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rotation.started -= instance.OnRotation;
             @Rotation.performed -= instance.OnRotation;
             @Rotation.canceled -= instance.OnRotation;
+            @PickUp.started -= instance.OnPickUp;
+            @PickUp.performed -= instance.OnPickUp;
+            @PickUp.canceled -= instance.OnPickUp;
         }
 
         public void RemoveCallbacks(IGroundActions instance)
@@ -525,6 +596,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Fly_Land;
     private readonly InputAction m_Fly_FlyUp;
     private readonly InputAction m_Fly_Sprint;
+    private readonly InputAction m_Fly_Aim;
+    private readonly InputAction m_Fly_Poop;
     public struct FlyActions
     {
         private @PlayerControls m_Wrapper;
@@ -534,6 +607,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Land => m_Wrapper.m_Fly_Land;
         public InputAction @FlyUp => m_Wrapper.m_Fly_FlyUp;
         public InputAction @Sprint => m_Wrapper.m_Fly_Sprint;
+        public InputAction @Aim => m_Wrapper.m_Fly_Aim;
+        public InputAction @Poop => m_Wrapper.m_Fly_Poop;
         public InputActionMap Get() { return m_Wrapper.m_Fly; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -558,6 +633,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
+            @Poop.started += instance.OnPoop;
+            @Poop.performed += instance.OnPoop;
+            @Poop.canceled += instance.OnPoop;
         }
 
         private void UnregisterCallbacks(IFlyActions instance)
@@ -577,6 +658,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
+            @Poop.started -= instance.OnPoop;
+            @Poop.performed -= instance.OnPoop;
+            @Poop.canceled -= instance.OnPoop;
         }
 
         public void RemoveCallbacks(IFlyActions instance)
@@ -600,6 +687,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnFly(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnRotation(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
     }
     public interface IFlyActions
     {
@@ -608,5 +696,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLand(InputAction.CallbackContext context);
         void OnFlyUp(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+        void OnPoop(InputAction.CallbackContext context);
     }
 }

@@ -11,7 +11,7 @@ public class MovementCompo : MonoBehaviour
 
     [SerializeField] float speed = 5;
     [SerializeField] float defautSpeed = 5;
-    [SerializeField] float rotationSpeed = 100;
+    [SerializeField] float rotationSpeed = 200;
     [SerializeField] float defautGravity = 1;
     [SerializeField] float gravity = 1;
     [SerializeField] float gravityRate = 5;
@@ -161,7 +161,6 @@ public class MovementCompo : MonoBehaviour
         {
             isTakeOff = false;
             player.Input.SwitchToFlyMode();
-            Debug.Log("Fly Input");
         }
     }
 
@@ -172,11 +171,10 @@ public class MovementCompo : MonoBehaviour
 
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = Vector3.zero;
+        //rigidBody.velocity = Vector3.zero;
+        //rigidBody.angularVelocity = Vector3.zero;
 
         player.Input.SwitchToGroundMode();
-        Debug.Log("Ground Input");
     }
 
     public void ForceLand()

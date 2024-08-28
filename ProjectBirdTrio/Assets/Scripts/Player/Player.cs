@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         input = GetComponent<InputCompo>();
         animations = GetComponent<AnimCompo>();
         stamina = maxStamina;
-        Debug.Log("Init Fait");
     }
     void Update()
     {

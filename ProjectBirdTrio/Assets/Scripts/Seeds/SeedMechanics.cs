@@ -17,7 +17,6 @@ public class SeedMechanics : MonoBehaviour
     {
         if (transform.localScale == Vector3.zero)
         {
-            print("coucou");
             currentTime = Timer(currentTime, maxTime);
         }
 
