@@ -18,7 +18,7 @@ public class BoatBounce : MonoBehaviour
     void Update()
     {
         Vector3 _boatPoision = gameObject.transform.position;
-       _boatPoision.y =  polyWater.Test - boatDeepWater;
+       _boatPoision.y = polyWater.Test - boatDeepWater;
         gameObject.transform.position = _boatPoision;
     }
 }

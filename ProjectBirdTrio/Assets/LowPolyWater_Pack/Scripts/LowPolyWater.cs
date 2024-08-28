@@ -4,15 +4,12 @@ namespace LowPolyWater
 {
     public class LowPolyWater : MonoBehaviour
     {
-        [SerializeField] GameObject boat = null;
-        [SerializeField] float test = 0.0f;
         public float waveHeight = 0.5f;
         public float waveFrequency = 0.5f;
         public float waveLength = 0.75f;
+        public float test = 0f;
 
-
-        public float Test => test;
-
+       public float Test => test;
         //Position where the waves originate from
         public Vector3 waveOriginPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
