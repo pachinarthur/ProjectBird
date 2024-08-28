@@ -15,6 +15,7 @@ public class InputCompo : MonoBehaviour
     [SerializeField] InputAction flyMove = null;
     [SerializeField] InputAction flyRotate = null;
     [SerializeField] InputAction forceLanding = null;
+    [SerializeField] InputAction flyUp = null;
 
     public InputAction Move => move;
     public InputAction Rotate => rotate;
@@ -22,6 +23,7 @@ public class InputCompo : MonoBehaviour
     public InputAction FlyMove => flyMove;
     public InputAction FlyRotate => flyRotate;
     public InputAction ForceLanding => forceLanding;
+    public InputAction FlyUp => flyUp;
 
     private void Awake()
     {
@@ -38,16 +40,20 @@ public class InputCompo : MonoBehaviour
         flyMove = controls.Fly.Movement;
         flyRotate = controls.Fly.Rotation;
         forceLanding = controls.Fly.Land;
+        flyUp = controls.Fly.FlyUp;
 
         move.Enable();
         rotate.Enable();
         fly.Enable();
         flyMove.Enable();
-        flyRotate.Enable();
+        flyRotate.Enable();        
         forceLanding.Enable();
+        flyUp.Enable();
 
         fly.performed += player.FlyMode;
+        
         forceLanding.performed += player.LandMode;
+
     }
 
     private void OnDisable()
@@ -66,17 +72,27 @@ public class InputCompo : MonoBehaviour
     {
         move.Disable();
         rotate.Disable();
+        fly.Disable();
 
-        fly.Enable();
+        flyUp.Enable();
         flyMove.Enable();
         flyRotate.Enable();
+        forceLanding.Enable();
+        flyUp.performed += player.Movement.OnFlyUp;
+        flyUp.canceled += player.Movement.OnFlyUp;
     }
     public void SwitchToGroundMode()
     {
         flyMove.Disable();
         flyRotate.Disable();
+        flyUp.Disable();
+        forceLanding.Disable();
+        flyUp.performed -= player.Movement.OnFlyUp;
+        flyUp.canceled -= player.Movement.OnFlyUp;
+
 
         move.Enable();
         rotate.Enable();
+        fly.Enable();
     }
 }

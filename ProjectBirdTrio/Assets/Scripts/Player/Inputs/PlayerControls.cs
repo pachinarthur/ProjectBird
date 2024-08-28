@@ -143,19 +143,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""1414186b-59c1-4b82-8387-56eba5c9dd30"",
-                    ""expectedControlType"": ""Vector3"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Fly"",
-                    ""type"": ""Button"",
-                    ""id"": ""caf270fa-6d14-4adc-a683-3e7eb09a6c79"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Rotation"",
@@ -174,13 +165,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""2bac3c0c-a8bf-4837-beee-04e184f44c8b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""3D Vector"",
+                    ""name"": ""2D Vector"",
                     ""id"": ""65945d29-4894-426d-9d49-f04a1488d405"",
-                    ""path"": ""3DVector"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -189,52 +189,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""c211d671-f8aa-43b0-a161-e6af0fdf5bc3"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""c1377a90-f19b-4aad-8b7a-a370ccf4e18c"",
-                    ""path"": ""<Keyboard>/backspace"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
+                    ""name"": ""Up"",
                     ""id"": ""22920b2f-71d0-4c48-aa36-29eee77cc24a"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""1694ba5d-24c6-4c46-a44d-7788540e9282"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""forward"",
-                    ""id"": ""c33a8236-9bd2-48c4-8024-ecab1cbdf688"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -244,8 +200,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""backward"",
-                    ""id"": ""662d9a5b-2fae-4109-8c3f-f495683e1bb1"",
+                    ""name"": ""Down"",
+                    ""id"": ""1694ba5d-24c6-4c46-a44d-7788540e9282"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -255,15 +211,26 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""021cb692-a37b-425a-8af3-a56a91597fa7"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""name"": ""Left"",
+                    ""id"": ""c33a8236-9bd2-48c4-8024-ecab1cbdf688"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Fly"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""662d9a5b-2fae-4109-8c3f-f495683e1bb1"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""2D Vector"",
@@ -323,11 +290,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7fea98a9-7158-4b83-afa6-523d8738baeb"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Land"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67c5aaaf-72ec-410f-a96a-4add9ed5e8cf"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -344,9 +322,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Fly
         m_Fly = asset.FindActionMap("Fly", throwIfNotFound: true);
         m_Fly_Movement = m_Fly.FindAction("Movement", throwIfNotFound: true);
-        m_Fly_Fly = m_Fly.FindAction("Fly", throwIfNotFound: true);
         m_Fly_Rotation = m_Fly.FindAction("Rotation", throwIfNotFound: true);
         m_Fly_Land = m_Fly.FindAction("Land", throwIfNotFound: true);
+        m_Fly_FlyUp = m_Fly.FindAction("FlyUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,17 +449,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Fly;
     private List<IFlyActions> m_FlyActionsCallbackInterfaces = new List<IFlyActions>();
     private readonly InputAction m_Fly_Movement;
-    private readonly InputAction m_Fly_Fly;
     private readonly InputAction m_Fly_Rotation;
     private readonly InputAction m_Fly_Land;
+    private readonly InputAction m_Fly_FlyUp;
     public struct FlyActions
     {
         private @PlayerControls m_Wrapper;
         public FlyActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Fly_Movement;
-        public InputAction @Fly => m_Wrapper.m_Fly_Fly;
         public InputAction @Rotation => m_Wrapper.m_Fly_Rotation;
         public InputAction @Land => m_Wrapper.m_Fly_Land;
+        public InputAction @FlyUp => m_Wrapper.m_Fly_FlyUp;
         public InputActionMap Get() { return m_Wrapper.m_Fly; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -494,15 +472,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Fly.started += instance.OnFly;
-            @Fly.performed += instance.OnFly;
-            @Fly.canceled += instance.OnFly;
             @Rotation.started += instance.OnRotation;
             @Rotation.performed += instance.OnRotation;
             @Rotation.canceled += instance.OnRotation;
             @Land.started += instance.OnLand;
             @Land.performed += instance.OnLand;
             @Land.canceled += instance.OnLand;
+            @FlyUp.started += instance.OnFlyUp;
+            @FlyUp.performed += instance.OnFlyUp;
+            @FlyUp.canceled += instance.OnFlyUp;
         }
 
         private void UnregisterCallbacks(IFlyActions instance)
@@ -510,15 +488,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Fly.started -= instance.OnFly;
-            @Fly.performed -= instance.OnFly;
-            @Fly.canceled -= instance.OnFly;
             @Rotation.started -= instance.OnRotation;
             @Rotation.performed -= instance.OnRotation;
             @Rotation.canceled -= instance.OnRotation;
             @Land.started -= instance.OnLand;
             @Land.performed -= instance.OnLand;
             @Land.canceled -= instance.OnLand;
+            @FlyUp.started -= instance.OnFlyUp;
+            @FlyUp.performed -= instance.OnFlyUp;
+            @FlyUp.canceled -= instance.OnFlyUp;
         }
 
         public void RemoveCallbacks(IFlyActions instance)
@@ -545,8 +523,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IFlyActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnFly(InputAction.CallbackContext context);
         void OnRotation(InputAction.CallbackContext context);
         void OnLand(InputAction.CallbackContext context);
+        void OnFlyUp(InputAction.CallbackContext context);
     }
 }

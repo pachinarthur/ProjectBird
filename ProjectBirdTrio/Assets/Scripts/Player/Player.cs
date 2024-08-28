@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] bool isFlying = false;
 
+    [SerializeField] float stamina = 100;
+    [SerializeField] float maxStamina = 100;
+    [SerializeField] float staminaDrainRate = 20;
+    [SerializeField] float staminaRecoveryRate = 50;
+
     public MovementCompo Movement => movement;
     public InputCompo Input => input;
     public AnimCompo Animations => animations;
+    public float Stamina => stamina;
+    public float StaminaDrainRate => staminaDrainRate;
 
     void Start()
     {
@@ -23,6 +31,27 @@ public class Player : MonoBehaviour
     void Update()
     {
         isFlying = movement.IsFlying;
+        if (!isFlying)
+            RecoverStamina();
+    }
+
+    public void DrainStamina(float _amount)
+    {
+        stamina -= _amount * Time.deltaTime;
+        if (stamina < 0)
+        {
+            stamina = 0;
+            movement.ForceLand(); 
+        }
+    }
+
+    private void RecoverStamina()
+    {
+        stamina += staminaRecoveryRate * Time.deltaTime;
+        if (stamina > maxStamina)
+        {
+            stamina = maxStamina;
+        }
     }
 
     void Init()
@@ -42,7 +71,7 @@ public class Player : MonoBehaviour
         isFlying = true;
     }
 
-    public void LandMode(InputAction.CallbackContext context)
+    public void LandMode(InputAction.CallbackContext _context)
     {
         Debug.Log("LandMode");
 

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class MovementCompo : MonoBehaviour
 {
@@ -9,10 +11,12 @@ public class MovementCompo : MonoBehaviour
 
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotateSpeed = 25f;
+    [SerializeField] float gravity = 1f;
 
     [SerializeField] bool isTakeOff = false;
     [SerializeField] bool isFlying = false;
     [SerializeField] bool isLanding = false;
+    [SerializeField] bool isFlyUp = false;
 
     [SerializeField] float currentHeight = 0;
     [SerializeField] float minFlyHeight = 1.5f;
@@ -25,6 +29,7 @@ public class MovementCompo : MonoBehaviour
 
     [SerializeField] Quaternion targetRotation;
     [SerializeField] float rotationSpeed = 50f;
+
 
     public bool IsFlying => isFlying;
     public bool IsLanding => isLanding;
@@ -44,8 +49,10 @@ public class MovementCompo : MonoBehaviour
         }
         else if (isFlying)
         {
+            ApplyGravity();               
             FlyMove();
             FlyRotate();
+            FlyUp();
         }
         else if (isLanding)
         {
@@ -63,21 +70,39 @@ public class MovementCompo : MonoBehaviour
 
     private void FlyMove()
     {
-        Vector3 _flyDir = player.Input.FlyMove.ReadValue<Vector3>();
+        Vector2 _flyDir = player.Input.FlyMove.ReadValue<Vector2>();
 
-        transform.position += transform.forward * _flyDir.z * flySpeed * Time.deltaTime;
+        transform.position += transform.forward * _flyDir.y * flySpeed * Time.deltaTime;
         transform.position += transform.right * _flyDir.x * flySpeed * Time.deltaTime;
+    }
 
-        transform.position += transform.up * _flyDir.y * flySpeed * Time.deltaTime;
+    public void FlyUp()
+    {
+        if (isFlyUp && player.Stamina > 0)
+        {
+            player.DrainStamina(player.StaminaDrainRate);
+            transform.position += transform.up * flySpeed * Time.deltaTime;
+        }
+    }
+
+    public void OnFlyUp(InputAction.CallbackContext _context)
+    {
+        if (_context.performed)isFlyUp = true;
+        else if (_context.canceled)isFlyUp = false;
     }
 
     void FlyRotate()
     {
         Vector2 _rotateDir = player.Input.FlyRotate.ReadValue<Vector2>()*2;
+
         transform.eulerAngles += Vector3.up * _rotateDir.x * flyRotateSpeed * Time.deltaTime;
         transform.eulerAngles += Vector3.right * -_rotateDir.y * flyRotateSpeed * Time.deltaTime;
     }
 
+    private void ApplyGravity()
+    {
+        transform.position += Vector3.down * gravity * Time.deltaTime; 
+    }
 
     void Move()
     {
@@ -99,6 +124,8 @@ public class MovementCompo : MonoBehaviour
 
     public void StartFlying()
     {
+        if (isTakeOff) return;
+        Debug.Log("Start to Fly");
         isTakeOff = true;
         rigidBody.useGravity = false;
         currentHeight = transform.position.y;
@@ -109,11 +136,11 @@ public class MovementCompo : MonoBehaviour
         if (transform.position.y < currentHeight + minFlyHeight)
         {
             transform.position += Vector3.up * takeOffSpeed * Time.deltaTime;
+            isFlying = true;
         }
         else
         {
             isTakeOff = false;
-            isFlying = true;
             player.Input.SwitchToFlyMode();
             Debug.Log("Fly Input");
         }
