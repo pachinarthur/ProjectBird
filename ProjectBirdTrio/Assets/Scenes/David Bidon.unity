@@ -225,6 +225,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4139745025144781283, guid: 67de918624ea4b64da7b71962f446c82, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.2545
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139745025144781283, guid: 67de918624ea4b64da7b71962f446c82, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.813324
       objectReference: {fileID: 0}
@@ -285,6 +289,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 399925862428090071, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: stamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 399925862428090071, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: maxStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 399925862428090071, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: staminaDrainUse
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 399925862428090071, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: staminaDrainRate
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2679624968993453297, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.1261492
@@ -325,9 +345,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3107546511769980776, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640858697055450652, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4672165094142941418, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
       propertyPath: m_Name
       value: Sparrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996411745980819362, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: flyUp.m_Name
+      value: Fly Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996411745980819362, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: sprintAir.m_Name
+      value: Sprint Air
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996411745980819362, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: sprintGround.m_Name
+      value: Sprint Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158297274210599444, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785243310405830756, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: rotateSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785243310405830756, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: minFlyHeight
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785243310405830756, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: takeOffSpeed
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785243310405830756, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: rotationSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7785243310405830756, guid: 392bdd495368c0e42950fa105c1b2eca, type: 3}
+      propertyPath: flyRotateSpeed
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
