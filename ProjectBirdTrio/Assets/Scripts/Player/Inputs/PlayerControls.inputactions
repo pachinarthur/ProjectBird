@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Rotation",
-                    "type": "Value",
-                    "id": "9f503b12-c457-4765-95f1-c7551c7474c8",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Fly",
                     "type": "Button",
                     "id": "c7e41a67-7463-48b7-ac46-9fd9ce272ec8",
@@ -31,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "2207d259-bf3d-4a34-9826-36153d8cc5aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "dcd6cf55-c5e0-4119-b183-b8dc5928de3e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -91,17 +100,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c1be448f-9713-4668-947a-93f6524d4d48",
-                    "path": "<Mouse>/delta/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Rotation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "056748d0-48c7-4e7a-9d5e-bb3b6d21ee06",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -110,6 +108,50 @@
                     "action": "Fly",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b77c3eab-ee3b-4cb3-b063-edd1686d8e1a",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "ebbccc88-b5e6-4322-9737-1bced8158708",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "abc5df6e-f2e3-4211-8516-325214334b8b",
+                    "path": "<Mouse>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "69e93d9a-2b2a-406a-a512-b86e07661a50",
+                    "path": "<Mouse>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -148,6 +190,15 @@
                     "name": "FlyUp",
                     "type": "Button",
                     "id": "2bac3c0c-a8bf-4837-beee-04e184f44c8b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "f5e71cb9-717d-4949-9d19-6a4a32b553e8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -284,6 +335,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d69d6e4a-23e4-4928-b6ee-bb0929dc7226",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

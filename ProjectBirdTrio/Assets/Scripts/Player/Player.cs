@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] float stamina = 100;
     [SerializeField] float maxStamina = 100;
-    [SerializeField] float staminaDrainRate = 20;
+    [SerializeField] float staminaDrainRate = 5;
+    [SerializeField] float staminaDrainUse = 10;
     [SerializeField] float staminaRecoveryRate = 50;
 
     public MovementCompo Movement => movement;
@@ -22,17 +23,30 @@ public class Player : MonoBehaviour
     public AnimCompo Animations => animations;
     public float Stamina => stamina;
     public float StaminaDrainRate => staminaDrainRate;
+    public float StaminaDrainUse => staminaDrainUse;
 
     void Start()
     {
         Init();
     }
 
+    void Init()
+    {
+        movement = GetComponent<MovementCompo>();
+        input = GetComponent<InputCompo>();
+        animations = GetComponent<AnimCompo>();
+        stamina = maxStamina;
+        Debug.Log("Init Fait");
+    }
     void Update()
     {
         isFlying = movement.IsFlying;
-        if (!isFlying)
+        if (!isFlying && !movement.IsSprinting)
             RecoverStamina();
+        else if (isFlying && !movement.IsSprinting)
+            DrainStamina(StaminaDrainRate);
+        if (movement.IsSprinting)
+            DrainStamina(staminaDrainUse);
     }
 
     public void DrainStamina(float _amount)
@@ -52,13 +66,6 @@ public class Player : MonoBehaviour
         {
             stamina = maxStamina;
         }
-    }
-
-    void Init()
-    {
-        movement = GetComponent<MovementCompo>();
-        input = GetComponent<InputCompo>();
-        animations = GetComponent<AnimCompo>();
     }
     public void FlyMode(InputAction.CallbackContext _context)
     {
