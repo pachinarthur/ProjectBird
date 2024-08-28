@@ -9,8 +9,8 @@ public class PoopBirdMechanic : MonoBehaviour
     public event Action decrementPoopValue = null;
     [SerializeField] PlayerSeedMechanics playerRef = null;
     [SerializeField] GameObject projectileRef = null;
-    [SerializeField] bool attack = false;
-    [SerializeField] bool canAttack = false, candecrementvalue = false;
+    [SerializeField] bool canAttack = false, candecrementvalue = false;             //Can attack que en vol + changement de camera
+    [SerializeField] bool attack = false;                                           //InpputAction
 
 
     [SerializeField] float maxvalue = 100, decrementvalue = 2, actualvalue = 100, t = 0;

@@ -10,7 +10,7 @@ public class PlayerSeedMechanics : MonoBehaviour
 
     [SerializeField] bool canPoop = false;
     [SerializeField] bool canEat = false;
-    [SerializeField] bool buttonEat = false; //a remplacer par l'input qui servira a interagir avec les graines
+    [SerializeField] bool buttonEat = false;         //a remplacer par l'input qui servira a interagir avec les graines
     [SerializeField] int poopMeter = 0;
     [SerializeField] List<SeedMechanics> allSeeds = null;
     [SerializeField] SeedMechanics closestSeeds = null;

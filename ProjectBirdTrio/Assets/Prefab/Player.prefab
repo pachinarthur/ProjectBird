@@ -541,7 +541,7 @@ MonoBehaviour:
     m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: c3f70b27-b4f2-4301-b1fd-95d6c1ad7553
+    m_Id: c0d58845-532d-42ed-9f40-5c05fec6000b
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -550,7 +550,7 @@ MonoBehaviour:
     m_Name: Rotate
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 94dbdca8-ba09-4dcd-8de6-ca0b76be9bcd
+    m_Id: e5f3422b-cdef-42f9-8820-2cced04a1abb
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -559,7 +559,7 @@ MonoBehaviour:
     m_Name: Fly
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 04a612df-1d35-43f2-ad35-c5d13fcb7afe
+    m_Id: cab2c166-da8c-44ad-b5aa-357eede84371
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -568,7 +568,7 @@ MonoBehaviour:
     m_Name: Fly Move
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: d5ce6e76-aef5-4e14-8d15-3ca03ee2c93d
+    m_Id: 40058b03-4da4-4fdd-a3d2-888d35d07a79
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -577,7 +577,7 @@ MonoBehaviour:
     m_Name: Fly Rotate
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 33291674-1e1f-487e-9cd8-e31c7e2322e7
+    m_Id: 7c7a8cae-64eb-45cd-8777-11e1e6d45c5c
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -586,7 +586,34 @@ MonoBehaviour:
     m_Name: Force Landing
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 27bba44a-8f83-4fe4-a80d-0ddcf1d5bbe6
+    m_Id: 70a4a0dc-26a8-4c93-ab5d-d378f4385b67
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  flyUp:
+    m_Name: Fly Up
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cd7408f7-6f3e-427b-bf9c-75e7546b551d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintAir:
+    m_Name: Sprint Air
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d5666313-d17a-4a72-afa0-fe76e96e9360
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintGround:
+    m_Name: Sprint Ground
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d6bf48d8-6823-45f2-8f5e-ce78a2d7199c
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -604,20 +631,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 5
-  rotateSpeed: 50
+  speed: 5
+  defautSpeed: 5
+  rotationSpeed: 100
+  defautGravity: 1
+  gravity: 1
+  gravityRate: 5
+  forwardOnFly: 1
+  sprintSpeed: 10
   isTakeOff: 0
   isFlying: 0
   isLanding: 0
+  isFlyUp: 0
+  isSprinting: 0
   currentHeight: 0
-  minFlyHeight: 1.2
-  flySpeed: 5
-  flyRotateSpeed: 70
-  takeOffSpeed: 1.8
+  minFlyHeight: 1.5
+  takeOffSpeed: 2.2
   rigidBody: {fileID: 0}
   groundLayer: 6
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
-  rotationSpeed: 5
 --- !u!114 &399925862428090071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +666,11 @@ MonoBehaviour:
   input: {fileID: 0}
   animations: {fileID: 0}
   isFlying: 0
+  stamina: 100
+  maxStamina: 100
+  staminaDrainRate: 5
+  staminaDrainUse: 10
+  staminaRecoveryRate: 50
 --- !u!54 &5754346195327225879
 Rigidbody:
   m_ObjectHideFlags: 0
