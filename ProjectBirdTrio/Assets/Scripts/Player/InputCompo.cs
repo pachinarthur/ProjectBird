@@ -123,8 +123,15 @@ public class InputCompo : MonoBehaviour
         sprintAir.performed += player.Movement.OnSprint;
         sprintAir.canceled += player.Movement.OnSprint;
 
-        aim.performed += poopBirdMechanic.OnAim;
-        aim.canceled += poopBirdMechanic.OnAim;
+        if (poopBirdMechanic != null)
+        {
+            aim.performed += poopBirdMechanic.OnAim;
+            aim.canceled += poopBirdMechanic.OnAim;
+        }
+        else
+        {
+            Debug.LogError("PoopBirdMechanic is not assigned or initialized!");
+        }
 
         poop.performed += poopBirdMechanic.OnPoop; 
     }
