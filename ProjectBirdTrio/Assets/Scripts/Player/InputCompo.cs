@@ -83,7 +83,7 @@ public class InputCompo : MonoBehaviour
         pickup.Enable();
         poop.Enable();
 
-        fly.performed += player.FlyMode;
+        fly.performed += player.Movement.FlyMode;
         pickup.performed += playerSeedMechanics.OnCollectSeed;
 
         aim.Enable();
@@ -98,7 +98,7 @@ public class InputCompo : MonoBehaviour
         flyRotate.Disable();
         aim.Disable();
 
-        fly.performed -= player.FlyMode;
+        fly.performed -= player.Movement.FlyMode;
         //forceLanding.performed -= player.LandMode;
         pickup.performed -= playerSeedMechanics.OnCollectSeed;
     }
@@ -118,7 +118,7 @@ public class InputCompo : MonoBehaviour
 
         flyUp.performed += player.Movement.OnFlyUp;
         flyUp.canceled += player.Movement.OnFlyUp;
-        forceLanding.performed += player.LandMode;
+        forceLanding.performed += player.Movement.LandMode;
 
         sprintAir.performed += player.Movement.OnSprint;
         sprintAir.canceled += player.Movement.OnSprint;
@@ -136,7 +136,7 @@ public class InputCompo : MonoBehaviour
         forceLanding.Disable();
         flyUp.performed -= player.Movement.OnFlyUp;
         flyUp.canceled -= player.Movement.OnFlyUp;
-        forceLanding.performed -= player.LandMode;
+        forceLanding.performed -= player.Movement.LandMode;
         sprintAir.performed -= player.Movement.OnSprint;
         sprintAir.canceled -= player.Movement.OnSprint;
         aim.performed -= poopBirdMechanic.OnAim;

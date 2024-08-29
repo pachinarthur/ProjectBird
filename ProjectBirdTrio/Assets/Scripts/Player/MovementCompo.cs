@@ -23,6 +23,7 @@ public class MovementCompo : MonoBehaviour
     [SerializeField] bool isLanding = false;
     [SerializeField] bool isFlyUp = false;
     [SerializeField] bool isSprinting = false;
+    [SerializeField] bool outStamina = false;
 
     [SerializeField] float currentHeight = 0;
     [SerializeField] float minFlyHeight = 1.5f;
@@ -53,17 +54,17 @@ public class MovementCompo : MonoBehaviour
         if (isTakeOff)
         {
             TakeOff();
+            Move();
         }
-        else if (isFlying)
+        if (isFlying)
         {
             ApplyGravity();               
             FlyMove();
             FlyRotate();
             FlyUp();
         }
-        else if (isLanding)
+        if (isLanding)
         {
-            SmoothLanding();
             Move();
             //Rotate();
         }
@@ -92,6 +93,48 @@ public class MovementCompo : MonoBehaviour
         }
     }
 
+    public void FlyMode(InputAction.CallbackContext _context)
+    {
+        //if (isTakeOff || (isFlying && !isLanding))
+        //{
+        //    return;
+        //}
+
+        //StartFlying();
+        //isFlying = true;
+
+        if (_context.performed)
+
+        {
+            if (isLanding)
+            {
+                Debug.Log("Tentative d'interruption de l'atterrissage pour voler");
+                StartFlying();
+                return;
+            }
+
+            if (isTakeOff || isFlying)
+            {
+                Debug.Log("Déjà en train de décoller ou de voler");
+                return;
+            }
+
+            StartFlying();
+        }
+    }
+
+    public void LandMode(InputAction.CallbackContext _context)
+    {
+        Debug.Log("LandMode");
+
+        if (isFlying && !isTakeOff)
+        {
+            Debug.Log("Landing...?");
+            ForceLand();
+            isFlying = false;
+        }
+    }
+
     public void OnFlyUp(InputAction.CallbackContext _context)
     {
         if (_context.performed)isFlyUp = true;
@@ -115,9 +158,14 @@ public class MovementCompo : MonoBehaviour
     private void ApplyGravity()
     {
         if (player.Stamina <= 0)
+        { 
             gravity = gravityRate;
-        else if (player.Stamina >= 0)
+        }
+        else
+        {
+            outStamina = false;
             gravity = defautGravity;
+        }
         transform.position += Vector3.down * gravity * Time.deltaTime;
         transform.position += transform.forward * forwardOnFly * Time.deltaTime;
     }
@@ -143,11 +191,27 @@ public class MovementCompo : MonoBehaviour
 
     public void StartFlying()
     {
-        if (isTakeOff && isFlying) return;
+        if (isLanding)
+        {
+            Debug.Log("Interrompre l'atterrissage et redécoller");
+            isLanding = false;
+            isTakeOff = true;
+            isFlying = true;
+
+            rigidBody.useGravity = false;
+            rigidBody.velocity = Vector3.zero;
+
+            currentHeight = transform.position.y;
+            player.Input.SwitchToFlyMode();
+            //player.DrainStamina(-5);
+            return;
+        }
+        if (isTakeOff || player.Stamina <= 10) return; //isTakeOff && isFlying || 
         Debug.Log("Start to Fly");
         isTakeOff = true;
         rigidBody.useGravity = false;
         currentHeight = transform.position.y;
+        player.DrainStamina(-5);
     }
 
     void TakeOff()
@@ -155,18 +219,20 @@ public class MovementCompo : MonoBehaviour
         if (transform.position.y < currentHeight + minFlyHeight)
         {
             transform.position += Vector3.up * takeOffSpeed * Time.deltaTime;
-            isFlying = true;
         }
         else
         {
             isTakeOff = false;
             player.Input.SwitchToFlyMode();
+            player.DrainStamina(-5);
+            isFlying = true;
         }
     }
 
     public void Land()
     {
-        isLanding = true;
+        isFlying = false;
+        isTakeOff = false;
         rigidBody.useGravity = true;
 
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
@@ -179,9 +245,14 @@ public class MovementCompo : MonoBehaviour
 
     public void ForceLand()
     {
-        if (isFlying)
+        if (isFlying || isTakeOff)
         {
-            Land(); 
+            isFlying = false;
+            isTakeOff = false;
+            isLanding = true;
+            Debug.Log("Forcing Landing");
+            player.Input.SwitchToGroundMode();
+            rigidBody.useGravity = true;
         }
     }
 
@@ -191,15 +262,20 @@ public class MovementCompo : MonoBehaviour
 
         if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
         {
-            isLanding = false;
+            Debug.Log("ATTERI");
         }
     }
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == groundLayer)
         {
-            Land();
-            isFlying = false;
+            {
+                Land();
+                SmoothLanding();
+                isLanding = false;
+                outStamina = false;
+                //isFlying = false;
+            }
         }
     }
 }

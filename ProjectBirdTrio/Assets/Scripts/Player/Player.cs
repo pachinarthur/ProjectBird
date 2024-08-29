@@ -65,27 +65,5 @@ public class Player : MonoBehaviour
         {
             stamina = maxStamina;
         }
-    }
-    public void FlyMode(InputAction.CallbackContext _context)
-    {
-        if (isFlying)
-        {
-            return;
-        }
-
-        movement.StartFlying();
-        isFlying = true;
-    }
-
-    public void LandMode(InputAction.CallbackContext _context)
-    {
-        Debug.Log("LandMode");
-
-        if (isFlying)
-        {
-            Debug.Log("Landing...?");
-            movement.ForceLand();
-            isFlying = false;
-        }
-    }
+    } 
 }

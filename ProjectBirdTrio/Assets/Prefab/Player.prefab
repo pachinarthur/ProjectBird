@@ -322,15 +322,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2679624968993453297}
-  - component: {fileID: 4491475836269607825}
+  - component: {fileID: 7785243310405830756}
   - component: {fileID: 4939755263491880137}
   - component: {fileID: 3316181400336090191}
   - component: {fileID: 3488403106048265828}
   - component: {fileID: 1785189156048384430}
   - component: {fileID: 4996411745980819362}
-  - component: {fileID: 7785243310405830756}
   - component: {fileID: 399925862428090071}
   - component: {fileID: 5754346195327225879}
+  - component: {fileID: 4491475836269607825}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -359,37 +359,38 @@ Transform:
   - {fileID: 6656283148907446713}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &4491475836269607825
-LODGroup:
+--- !u!114 &7785243310405830756
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4672165094142941418}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.000000029802322, y: 0.38319656, z: -0.044521928}
-  m_Size: 0.76724046
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.95
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 39488793179129153}
-  - screenRelativeHeight: 0.7
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3107546511769980776}
-  - screenRelativeHeight: 0.35
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 5158297274210599444}
-  - screenRelativeHeight: 0.05
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3640858697055450652}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167f990f12c9bb84ca0b801b7da93b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speed: 5
+  defautSpeed: 5
+  rotationSpeed: 200
+  defautGravity: 1
+  gravity: 1
+  gravityRate: 5
+  forwardOnFly: 1
+  sprintSpeed: 10
+  isTakeOff: 0
+  isFlying: 0
+  isLanding: 0
+  isFlyUp: 0
+  isSprinting: 0
+  currentHeight: 0
+  minFlyHeight: 1.5
+  takeOffSpeed: 2.2
+  rigidBody: {fileID: 0}
+  groundLayer: 6
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &4939755263491880137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,15 +403,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1990f79716535df42a5f5ae97111dbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedMecha: {fileID: 0}
   playerRef: {fileID: 0}
   projectileRef: {fileID: 306688673870109771, guid: e05026671b4e4dc45afafc81aa815ced, type: 3}
   canAttack: 0
-  candecrementvalue: 0
-  attack: 0
-  maxvalue: 100
-  decrementvalue: 2
-  actualvalue: 100
-  t: 0
+  isLanding: 0
+  mainCamera: {fileID: 0}
+  aimCamera: {fileID: 0}
+  movementComponent: {fileID: 0}
 --- !u!114 &3316181400336090191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPoop: 0
-  canEat: 0
-  buttonEat: 0
   poopMeter: 0
   allSeeds: []
   closestSeeds: {fileID: 0}
@@ -486,7 +484,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32de83b078b93d458bc5e7f9427db7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSeedMechanics: {fileID: 0}
   player: {fileID: 0}
+  poopBirdMechanic: {fileID: 0}
   move:
     m_Name: Move
     m_Type: 0
@@ -550,6 +550,33 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  pickup:
+    m_Name: Pickup
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0b990fc7-6f59-4e0b-927f-405c3d17c78c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  aim:
+    m_Name: Aim
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8ccb6d96-c61c-4d95-ac23-0bfb2e04ce48
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  poop:
+    m_Name: Poop
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 17a760bd-c99a-4e3d-9d4f-730946f84bbe
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   sprintAir:
     m_Name: Sprint Air
     m_Type: 0
@@ -568,38 +595,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
---- !u!114 &7785243310405830756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4672165094142941418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 167f990f12c9bb84ca0b801b7da93b8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  speed: 5
-  defautSpeed: 5
-  rotationSpeed: 200
-  defautGravity: 1
-  gravity: 1
-  gravityRate: 5
-  forwardOnFly: 1
-  sprintSpeed: 10
-  isTakeOff: 0
-  isFlying: 0
-  isLanding: 0
-  isFlyUp: 0
-  isSprinting: 0
-  currentHeight: 0
-  minFlyHeight: 1.5
-  takeOffSpeed: 2.2
-  rigidBody: {fileID: 0}
-  groundLayer: 6
-  targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &399925862428090071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +643,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!205 &4491475836269607825
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672165094142941418}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.000000029802322, y: 0.38319656, z: -0.044521928}
+  m_Size: 0.76724046
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.95
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 39488793179129153}
+  - screenRelativeHeight: 0.7
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3107546511769980776}
+  - screenRelativeHeight: 0.35
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5158297274210599444}
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3640858697055450652}
+  m_Enabled: 1
 --- !u!1 &4694716922545336891
 GameObject:
   m_ObjectHideFlags: 0
