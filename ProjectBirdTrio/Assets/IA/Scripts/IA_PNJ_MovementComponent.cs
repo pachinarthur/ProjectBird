@@ -8,14 +8,16 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
 {
     public event Action OnTargetReached = null;
     [SerializeField] float moveSpeed = 10, rotateSpeed = 50;
-    [SerializeField] bool canMove = false;
+    [SerializeField] bool canMove = false, moveZone =false;
     [SerializeField] Vector3 patrolLocation = Vector3.zero;
+    [SerializeField] Vector3 zoneLocation = Vector3.zero;
 
     public bool IsAtLocation
     {
         get
         {
-            return Vector3.Distance(transform.position, patrolLocation) < .5f;
+            Vector3 _otherPos = (moveZone) ? zoneLocation : patrolLocation;
+            return Vector3.Distance(transform.position, _otherPos) < .5f;
         }
     }
     // Start is called before the first frame update
@@ -34,7 +36,8 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     void MoveTo()
     {
         if (!canMove) return;
-        transform.position = Vector3.MoveTowards(transform.position, patrolLocation, Time.deltaTime * moveSpeed);
+        Vector3 _otherPos = (moveZone) ? zoneLocation : patrolLocation;
+        transform.position = Vector3.MoveTowards(transform.position, _otherPos, Time.deltaTime * moveSpeed);
         if (IsAtLocation)
             OnTargetReached?.Invoke();
     }
@@ -52,12 +55,33 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     {
         patrolLocation = _pos;
         SetCanMove(true);
-        Debug.Log("canMove");
+    }
+
+    public void SetZoneLocation(Vector3 _pos)
+    {
+        zoneLocation = _pos;
+        SetCanMove(true);
     }
 
     public void SetCanMove(bool _value)
     {
-        Debug.Log("CanMove");
         canMove = _value;
     }
+
+    public void SetMoveZone(bool _val)
+    {
+        moveZone = _val; 
+    }
+
+    public bool GetMoveZone()
+    {
+        return moveZone;
+    }
+
+   public void GoToZone()
+    {
+        //if (_zone == null) return;
+        //SetPatrolLocation(_zone.transform.position);
+    }
+
 }

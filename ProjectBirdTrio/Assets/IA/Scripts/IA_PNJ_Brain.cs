@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(IA_PNJ_MovementComponent), typeof(IA_PNJ_PatrolComponent))]
-[RequireComponent(typeof(IA_PNJ_ThrowComponent),typeof(IA_PNJ_IdleComponent))]
+[RequireComponent(typeof(IA_PNJ_ThrowComponent),typeof(IA_PNJ_IdleComponent),typeof(IA_PNJ_ZoneComponent))]
 public class IA_PNJ_Brain : MonoBehaviour
 {
     public static readonly int IDLE_DONE = Animator.StringToHash("idleDone");
     public static readonly int THROW_DONE = Animator.StringToHash("throwDone");
     public static readonly int PATROL_DONE = Animator.StringToHash("patrolDone");
+    public static readonly int GOZONE_DONE = Animator.StringToHash("GoZoneDone");
     [SerializeField] Animator fsm = null;
     [SerializeField] IA_PNJ_MovementComponent movement = null;
     [SerializeField] IA_PNJ_PatrolComponent patrol = null;
     [SerializeField] IA_PNJ_IdleComponent idle = null;
     [SerializeField] IA_PNJ_ThrowComponent throwComponent = null;
+    [SerializeField] IA_PNJ_ZoneComponent zone = null;
     [SerializeField] Color debugColor = Color.white;
     IA_PNJ_BaseBehaviour[] behaviours = new IA_PNJ_BaseBehaviour[] { };
+
+
 
     public IA_PNJ_ThrowComponent ThrowComponent => throwComponent;
     public IA_PNJ_PatrolComponent Patrol => patrol;
     public IA_PNJ_MovementComponent Movement => movement;
-    public IA_PNJ_IdleComponent Idle => idle;
+    public IA_PNJ_IdleComponent Idle => idle;   
+    public IA_PNJ_ZoneComponent Zone => zone;
     public Animator FSM => fsm;
 
-    public bool isValid => fsm && idle && movement && throwComponent && patrol;
+    public bool isValid => fsm && idle && movement && throwComponent && patrol && zone;
 
 
     // Start is called before the first frame update
@@ -45,22 +50,40 @@ public class IA_PNJ_Brain : MonoBehaviour
         patrol = GetComponent<IA_PNJ_PatrolComponent>();
         throwComponent = GetComponent<IA_PNJ_ThrowComponent>();
         idle = GetComponent<IA_PNJ_IdleComponent>();
+        zone = GetComponent<IA_PNJ_ZoneComponent>();
         if (!isValid) return;
 
         patrol.OnPatrolLocationFound += movement.SetPatrolLocation;
 
         movement.OnTargetReached += () =>
         {
-            fsm.SetBool(IDLE_DONE, false);
-            fsm.SetBool(PATROL_DONE, true);
-            movement.SetCanMove(false);
+            if (movement.GetMoveZone())
+            {
+                Debug.Log("Zone reached");
+                fsm.SetBool(GOZONE_DONE, true);
+                fsm.SetBool(IDLE_DONE, false);
+                movement.SetCanMove(false);
+                movement.SetMoveZone(false);
+            }
+            else
+            {
+                fsm.SetBool(PATROL_DONE, true);
+                fsm.SetBool(IDLE_DONE, false);
+            }
 
+        };
+
+        zone.OnZoneFound += (_zone) =>
+        {
+            movement.SetZoneLocation(new Vector3(_zone.transform.position.x,transform.position.y,_zone.transform.position.z));
+            Debug.Log("Zone found");
         };
 
         idle.OnTimerElapsed += () =>
         {
             fsm.SetBool(IDLE_DONE, true);
             fsm.SetBool(PATROL_DONE, false);
+
         };
 
         behaviours = fsm.GetBehaviours<IA_PNJ_BaseBehaviour>();
@@ -79,8 +102,6 @@ public class IA_PNJ_Brain : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = debugColor;
-        Gizmos.DrawWireSphere(transform.position + transform.up, .5f);
-        Gizmos.color = Color.white;
+       
     }
 }

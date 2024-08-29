@@ -8,10 +8,16 @@ public class IA_PNJ_PatrolComponent : MonoBehaviour
     public event Action<Vector3> OnPatrolLocationFound;
     [SerializeField] Vector3 targetLocation = Vector3.zero;
     [SerializeField] float range = 10;
+    [SerializeField] IA_PNJ_Brain brain = null;
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+    }
 
+    void Init()
+    {
+       brain = GetComponent<IA_PNJ_Brain>();
     }
 
     // Update is called once per frame
@@ -24,6 +30,12 @@ public class IA_PNJ_PatrolComponent : MonoBehaviour
     {
         Vector2 _pos = UnityEngine.Random.insideUnitCircle;
         targetLocation = transform.position + new Vector3(_pos.x, 0, _pos.y) * range;
+        bool isInZone = brain.Zone.IsPositionInsideZone(targetLocation);
+        if (!isInZone)
+        {
+            Debug.Log("Not in zone");
+            FindRandomLocationInRange();
+        }
         OnPatrolLocationFound?.Invoke(targetLocation);
     }
 
