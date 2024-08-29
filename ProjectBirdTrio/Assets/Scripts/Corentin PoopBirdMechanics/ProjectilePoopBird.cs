@@ -29,7 +29,7 @@ public class ProjectilePoopBird : MonoBehaviour
         {
             Instantiate(testground, transform.position + new Vector3(0, spawnYvalue, 0), Quaternion.identity);
             Destroy(gameObject);
-            print("egg");
+          //  print("egg");
         }
     }
 }
