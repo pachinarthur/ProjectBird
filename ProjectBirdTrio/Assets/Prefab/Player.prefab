@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8422697163852196788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tail.01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6743417336377597278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wing.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 909202620755987075}
   - component: {fileID: 5158297274210599444}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1809638538672071658}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hair.02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6185287835540796678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4119237941118664904}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: feet.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 514877792091531716}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tail.02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6133378789685415720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: feet.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 399925862428090071}
   - component: {fileID: 5754346195327225879}
   - component: {fileID: 4491475836269607825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,9 +411,11 @@ MonoBehaviour:
   projectileRef: {fileID: 0}
   canAttack: 0
   isLanding: 0
-  mainCamera: {fileID: 0}
-  aimCamera: {fileID: 0}
+  mainCamera: {fileID: 1242279769882631016}
+  aimCamera: {fileID: 3105754960820170394}
   movementComponent: {fileID: 0}
+  cinemachineBrain: {fileID: 0}
+  transitionTime: 2
 --- !u!114 &3316181400336090191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,7 +689,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6656283148907446713}
   - component: {fileID: 1242279769882631016}
-  m_Layer: 0
+  - component: {fileID: 8545062154054044346}
+  m_Layer: 9
   m_Name: BaseCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +706,7 @@ Transform:
   m_GameObject: {fileID: 4694716922545336891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1999998, z: -3}
+  m_LocalPosition: {x: -0.000007480383, y: 1, z: -2.9999828}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -749,6 +752,40 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 3781537524411313387}
+--- !u!114 &8545062154054044346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694716922545336891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 0
+    m_Time: 0.1
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5300012798742084814
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +797,8 @@ GameObject:
   - component: {fileID: 3781537524411313387}
   - component: {fileID: 7861949706315066683}
   - component: {fileID: 2497693369911786297}
-  m_Layer: 0
+  - component: {fileID: 6210605156591690031}
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,6 +845,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Damping: 0
+--- !u!114 &6210605156591690031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5300012798742084814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 1, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 0
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
+  m_TargetMovementOnly: 1
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_CameraDistance: 3
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_DeadZoneDepth: 0
+  m_UnlimitedSoftZone: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+  m_GroupFramingMode: 2
+  m_AdjustmentMode: 0
+  m_GroupFramingSize: 0.8
+  m_MaxDollyIn: 5000
+  m_MaxDollyOut: 5000
+  m_MinimumDistance: 1
+  m_MaximumDistance: 5000
+  m_MinimumFOV: 3
+  m_MaximumFOV: 60
+  m_MinimumOrthoSize: 1
+  m_MaximumOrthoSize: 5000
 --- !u!1 &5387912330113820917
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,7 +897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7009722946292416238}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hair.01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3124162181533796412}
   - component: {fileID: 1141661371944127061}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,7 +972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6878312018691485371}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +1004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 769244783275367020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AIM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -939,7 +1020,7 @@ Transform:
   m_GameObject: {fileID: 7038647306081329551}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7492836, z: 0, w: 0.6622493}
-  m_LocalPosition: {x: -0.012648912, y: -1.02, z: 0.021789212}
+  m_LocalPosition: {x: -0.028, y: -0.093, z: 0.147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -955,7 +1036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8220755892709120860}
   - component: {fileID: 39488793179129153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,7 +1130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1246347216981249172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9077550187999837695}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wing.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,7 +1201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5882459032868670736}
   - component: {fileID: 3105754960820170394}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1135,7 +1216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8648625925207417437}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.76604444, y: 1.9342214e-10, z: -0.000000010488072, w: 0.64278764}
+  m_LocalRotation: {x: 0.5929913, y: -0.0754852, z: 0.055973083, w: 0.79970646}
   m_LocalPosition: {x: 0, y: 0.4000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1162,7 +1243,7 @@ MonoBehaviour:
   m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 769244783275367020}
-  m_Follow: {fileID: 769244783275367020}
+  m_Follow: {fileID: 2679624968993453297}
   m_Lens:
     FieldOfView: 78.04324
     OrthographicSize: 5
@@ -1192,7 +1273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8050002665105950149}
   - component: {fileID: 3640858697055450652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1287,7 +1368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5600346812462747194}
   - component: {fileID: 3107546511769980776}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
