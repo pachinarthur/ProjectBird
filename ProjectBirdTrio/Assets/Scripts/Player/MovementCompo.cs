@@ -26,8 +26,8 @@ public class MovementCompo : MonoBehaviour
     [SerializeField] bool outStamina = false;
 
     [SerializeField] float currentHeight = 0;
-    [SerializeField] float minFlyHeight = 1.5f;
-    [SerializeField] float takeOffSpeed = 2.2f;
+    [SerializeField] float minFlyHeight = 2f;
+    [SerializeField] float takeOffSpeed = 3f;
 
     [SerializeField] Rigidbody rigidBody = null;
     [SerializeField] int groundLayer = 6;
@@ -48,13 +48,17 @@ public class MovementCompo : MonoBehaviour
 
     void Update()
     {
-        if (player.Stamina <= 0) isSprinting = false;
+        if (player.Stamina <= 0)
+        {
+            isSprinting = false;
+            outStamina = true;
+        }
+        else outStamina = false;
         speed = isSprinting ? sprintSpeed : defautSpeed;
 
         if (isTakeOff)
         {
             TakeOff();
-            Move();
         }
         if (isFlying)
         {
@@ -95,7 +99,7 @@ public class MovementCompo : MonoBehaviour
 
     public void FlyMode(InputAction.CallbackContext _context)
     {
-        //if (isTakeOff || (isFlying && !isLanding))
+        //if (isTakeOff || isFlying && !isLanding)
         //{
         //    return;
         //}
@@ -157,7 +161,7 @@ public class MovementCompo : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (player.Stamina <= 0)
+        if (outStamina) //Forte gravité si plus de stam
         { 
             gravity = gravityRate;
         }
@@ -191,11 +195,11 @@ public class MovementCompo : MonoBehaviour
 
     public void StartFlying()
     {
-        if (isLanding)
+        if (isLanding)  //Logique de decollage si deja en l'air
         {
             Debug.Log("Interrompre l'atterrissage et redécoller");
             isLanding = false;
-            isTakeOff = true;
+            isTakeOff = false;
             isFlying = true;
 
             rigidBody.useGravity = false;
@@ -206,7 +210,7 @@ public class MovementCompo : MonoBehaviour
             //player.DrainStamina(-5);
             return;
         }
-        if (isTakeOff || player.Stamina <= 10) return; //isTakeOff && isFlying || 
+        if (isTakeOff || player.Stamina <= 10) return; //Logique de base
         Debug.Log("Start to Fly");
         isTakeOff = true;
         rigidBody.useGravity = false;
@@ -214,7 +218,7 @@ public class MovementCompo : MonoBehaviour
         player.DrainStamina(-5);
     }
 
-    void TakeOff()
+    void TakeOff()     
     {
         if (transform.position.y < currentHeight + minFlyHeight)
         {
@@ -243,7 +247,7 @@ public class MovementCompo : MonoBehaviour
         player.Input.SwitchToGroundMode();
     }
 
-    public void ForceLand()
+    public void ForceLand()     // si plus de stam ou si trigger
     {
         if (isFlying || isTakeOff)
         {
@@ -256,7 +260,7 @@ public class MovementCompo : MonoBehaviour
         }
     }
 
-    void SmoothLanding()
+    void SmoothLanding()    //Remise a zero de la camera
     {
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
@@ -265,7 +269,7 @@ public class MovementCompo : MonoBehaviour
             Debug.Log("ATTERI");
         }
     }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)      //Contact au sol
     {
         if (collision.gameObject.layer == groundLayer)
         {

@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerSeedMechanics : MonoBehaviour
+public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pickup Mechanics
 {
 
     [SerializeField] bool canPoop = false;
