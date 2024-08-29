@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6417765285932417857}
   - component: {fileID: 8441348947779559459}
   - component: {fileID: 833796908779845670}
-  - component: {fileID: -2887655061709739713}
+  - component: {fileID: -7461355352473301369}
   m_Layer: 8
   m_Name: projectile
   m_TagString: Untagged
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70ce8150808afe4ea3129db170eaac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godown: 1
+  godown: 0.5
   testground: {fileID: 4962846676699703159, guid: ac321686d2a99ee428d938a97174efb1, type: 3}
-  spawnYvalue: 0.4
+  spawnYvalue: 0
 --- !u!33 &6417765285932417857
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -116,13 +116,13 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &-2887655061709739713
+--- !u!54 &-7461355352473301369
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,8 +144,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

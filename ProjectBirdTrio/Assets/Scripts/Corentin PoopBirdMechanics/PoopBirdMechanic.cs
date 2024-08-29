@@ -24,7 +24,7 @@ public class PoopBirdMechanic : MonoBehaviour
     void Update()
     {
         if (canAttack == true) poopProjectileLaunch();
-        print(playerRef.PoopMeter);
+    //    print(playerRef.PoopMeter);
         decrement();
         t += Time.deltaTime;
     }
