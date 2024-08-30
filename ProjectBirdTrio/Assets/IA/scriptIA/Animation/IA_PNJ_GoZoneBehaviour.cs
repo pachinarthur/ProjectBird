@@ -8,6 +8,8 @@ public class IA_PNJ_GoZoneBehaviour : IA_PNJ_BaseBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        Debug.Log(brain);
         brain.SetColor(debugColor);
         brain.Movement.SetCanMove(true);
         brain.Movement.SetMoveZone(true);

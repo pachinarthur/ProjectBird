@@ -33,7 +33,6 @@ public class IA_PNJ_PatrolComponent : MonoBehaviour
         bool isInZone = brain.Zone.IsPositionInsideZone(targetLocation);
         if (!isInZone)
         {
-            Debug.Log("Not in zone");
             FindRandomLocationInRange();
         }
         OnPatrolLocationFound?.Invoke(targetLocation);

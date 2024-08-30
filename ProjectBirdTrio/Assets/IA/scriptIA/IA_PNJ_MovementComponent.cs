@@ -45,7 +45,9 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     void RotateTo()
     {
         if (!canMove) return;
-        Vector3 _look = patrolLocation - transform.position;
+
+        Vector3 _otherPos = (moveZone) ? zoneLocation : patrolLocation;
+        Vector3 _look = _otherPos - transform.position;
         if (_look == Vector3.zero) return;
         Quaternion _rot = Quaternion.LookRotation(_look);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _rot, Time.deltaTime * rotateSpeed);

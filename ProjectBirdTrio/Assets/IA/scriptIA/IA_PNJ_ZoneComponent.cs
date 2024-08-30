@@ -33,7 +33,7 @@ public class IA_PNJ_ZoneComponent : MonoBehaviour
         int index = UnityEngine.Random.Range(0, zoneIslands.Count);
         zoneToGo = zoneIslands[index];
         if (IsZoneFull(zoneToGo)) return;
-        Debug.Log(zoneToGo.name);
+        SetZoneToGo(zoneToGo);
         OnZoneFound?.Invoke(zoneToGo);
     }
 

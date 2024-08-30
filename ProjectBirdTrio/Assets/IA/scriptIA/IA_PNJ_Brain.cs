@@ -34,6 +34,7 @@ public class IA_PNJ_Brain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitBehaviours();
         Init();
     }
 
@@ -45,7 +46,7 @@ public class IA_PNJ_Brain : MonoBehaviour
 
     void Init()
     {
-        fsm = GetComponent<Animator>();
+        
         movement = GetComponent<IA_PNJ_MovementComponent>();
         patrol = GetComponent<IA_PNJ_PatrolComponent>();
         throwComponent = GetComponent<IA_PNJ_ThrowComponent>();
@@ -59,7 +60,6 @@ public class IA_PNJ_Brain : MonoBehaviour
         {
             if (movement.GetMoveZone())
             {
-                Debug.Log("Zone reached");
                 fsm.SetBool(GOZONE_DONE, true);
                 fsm.SetBool(IDLE_DONE, false);
                 movement.SetCanMove(false);
@@ -76,7 +76,6 @@ public class IA_PNJ_Brain : MonoBehaviour
         zone.OnZoneFound += (_zone) =>
         {
             movement.SetZoneLocation(new Vector3(_zone.transform.position.x,transform.position.y,_zone.transform.position.z));
-            Debug.Log("Zone found");
         };
 
         idle.OnTimerElapsed += () =>
@@ -86,6 +85,15 @@ public class IA_PNJ_Brain : MonoBehaviour
 
         };
 
+        
+
+    }
+
+    void InitBehaviours()
+    {
+        
+        fsm = GetComponent<Animator>();
+        fsm.enabled = true;
         behaviours = fsm.GetBehaviours<IA_PNJ_BaseBehaviour>();
         int _size = behaviours.Length;
         for (int i = 0; i < _size; i++)

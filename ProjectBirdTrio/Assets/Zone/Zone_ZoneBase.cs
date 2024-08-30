@@ -7,7 +7,6 @@ public class Zone_ZoneBase : MonoBehaviour
 {
     [SerializeField] int maxNpc = 0;
     [SerializeField] List<GameObject> npcs = new List<GameObject>();
-    [SerializeField] string nomZone = null;
     // Start is called before the first frame update
     void Start()
     {
