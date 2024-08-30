@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pickup Mechanics
 {
-
+    [SerializeField] Player playerRef = null;
     [SerializeField] bool canPoop = false;
     //[SerializeField] bool canEat = false;
     [SerializeField] int poopMeter = 0;
@@ -22,6 +22,7 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
     void Start()
     {
         poopBirdRef = GetComponent<PoopBirdMechanic>();
+        playerRef = GetComponent<Player>();
         poopBirdRef.decrementPoopValue += DecrementPoop;
 }
     void SortByClosest()
@@ -73,11 +74,13 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
     {
         if (closestSeeds != null)
         {
+            playerRef.Animations.UpdatePickupAnimatorParam(true);
             SeedMechanics _seedToRemove = closestSeeds;
             _seedToRemove.gameObject.transform.localScale = Vector3.zero;
             poopMeter += 1;
             allSeeds.Remove(_seedToRemove);
             closestSeeds = allSeeds.Count > 0 ? allSeeds[0] : null;
+            Invoke("StopPickupAnimation", 0.5f);
 
             //closestSeeds.gameObject.transform.localScale = Vector3.zero;
             //closestSeeds = allSeeds[0];
@@ -85,10 +88,14 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
             //canEat = false;
         }
     }
-
-    public void OnCollectSeed(InputAction.CallbackContext context)
+    void StopPickupAnimation()          //Triche timer
     {
-        if (context.performed)
+        playerRef.Animations.UpdatePickupAnimatorParam(false);
+    }
+
+    public void OnCollectSeed(InputAction.CallbackContext _context)
+    {
+        if (_context.performed)
         {
             EatSeed();
         }

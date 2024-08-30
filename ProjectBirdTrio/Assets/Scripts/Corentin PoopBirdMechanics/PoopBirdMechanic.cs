@@ -42,6 +42,11 @@ public class PoopBirdMechanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerRef.Movement.IsFlying == false)
+        {
+            aimCamera.gameObject.SetActive(false);
+            mainCamera.gameObject.SetActive(true);
+        }
         if (movementComponent != null && movementComponent.IsLanding)
         {
             SwitchToMainCamera();

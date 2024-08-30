@@ -94,6 +94,7 @@ public class InputCompo : MonoBehaviour
         move.Disable();
         rotate.Disable();
         fly.Disable();
+        fly.Disable();
         flyMove.Disable();
         flyRotate.Disable();
         aim.Disable();

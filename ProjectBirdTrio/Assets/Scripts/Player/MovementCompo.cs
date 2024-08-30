@@ -48,6 +48,8 @@ public class MovementCompo : MonoBehaviour
 
     void Update()
     {
+        player.Animations.UpdateFlyAnimatorParam(isFlying);
+        player.Animations.UpdateTakeOffAnimatorParam(isTakeOff);
         if (player.Stamina <= 0)
         {
             isSprinting = false;
@@ -106,7 +108,7 @@ public class MovementCompo : MonoBehaviour
 
         //StartFlying();
         //isFlying = true;
-
+        if (outStamina) return;
         if (_context.performed)
 
         {
@@ -155,8 +157,16 @@ public class MovementCompo : MonoBehaviour
     {
         Vector2 _rotateDir = player.Input.FlyRotate.ReadValue<Vector2>();
 
+        float _newPitch = transform.eulerAngles.x - _rotateDir.y * (rotationSpeed * 0.5f) * Time.deltaTime;
+        if (_newPitch > 180)
+        {
+            _newPitch -= 360;
+        }
+        _newPitch = Mathf.Clamp(_newPitch, -60f, 30);
+
         transform.eulerAngles += Vector3.up * _rotateDir.x * rotationSpeed * Time.deltaTime;
-        transform.eulerAngles += Vector3.right * -_rotateDir.y * (rotationSpeed * 0.5f) * Time.deltaTime;
+        //transform.eulerAngles += Vector3.right * -_rotateDir.y * (rotationSpeed * 0.5f) * Time.deltaTime;
+        transform.eulerAngles = new Vector3(_newPitch, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
     private void ApplyGravity()
@@ -178,8 +188,11 @@ public class MovementCompo : MonoBehaviour
     {
         if (!player) return;
         Vector2 _moveDir = player.Input.Move.ReadValue<Vector2>();
+        player.Animations.UpdateForwardAnimatorParam(_moveDir.y);
+        if (_moveDir.y < 0) return;
 
         transform.position += transform.forward * _moveDir.y * speed * Time.deltaTime;
+
         //transform.position += transform.right * _moveDir.x * moveSpeed * Time.deltaTime;
 
         //player.Animations.UpdateForwardAnimatorParam(_moveDir.y);
@@ -220,6 +233,7 @@ public class MovementCompo : MonoBehaviour
 
     void TakeOff()     
     {
+        if (outStamina) return;
         if (transform.position.y < currentHeight + minFlyHeight)
         {
             transform.position += Vector3.up * takeOffSpeed * Time.deltaTime;

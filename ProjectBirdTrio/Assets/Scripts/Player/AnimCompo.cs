@@ -28,4 +28,21 @@ public class AnimCompo : MonoBehaviour
         if (!characterAnimator) return;
         characterAnimator.SetFloat(AnimParams.RIGHT_PARAM, _value, animDamping, Time.deltaTime);
     }
+
+    public void UpdateFlyAnimatorParam(bool _value)
+    {
+        if (!characterAnimator) return;
+        characterAnimator.SetBool(AnimParams.FLY_PARAM, _value);
+    }
+
+    public void UpdatePickupAnimatorParam(bool _value)
+    {
+        if (!characterAnimator) return;
+        characterAnimator.SetBool(AnimParams.PICKUP_PARAM, _value);
+    }
+    public void UpdateTakeOffAnimatorParam(bool _value)
+    {
+        if (!characterAnimator) return;
+        characterAnimator.SetBool(AnimParams.TAKEOFF_PARAM, _value);
+    }
 }

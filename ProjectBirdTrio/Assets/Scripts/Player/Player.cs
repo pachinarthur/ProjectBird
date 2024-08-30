@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] AnimCompo animations = null;
 
     [SerializeField] bool isFlying = false;
+    [SerializeField] bool isLanding = false;
 
     [SerializeField] float stamina = 100;
     [SerializeField] float maxStamina = 100;
@@ -39,8 +40,9 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        isLanding = movement.IsLanding;
         isFlying = movement.IsFlying;
-        if (!isFlying && !movement.IsSprinting)
+        if (!isFlying && !movement.IsSprinting && !isLanding)
             RecoverStamina();
         else if (isFlying && !movement.IsSprinting)
             DrainStamina(StaminaDrainRate);
