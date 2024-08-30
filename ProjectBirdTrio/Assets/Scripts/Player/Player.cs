@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
 
     private void RecoverStamina()
     {
+        movement.isLanding = false;
         stamina += staminaRecoveryRate * Time.deltaTime;
         if (stamina > maxStamina)
         {
