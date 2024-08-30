@@ -73,6 +73,20 @@ public class IA_PNJ_Brain : MonoBehaviour
 
         };
 
+        idle.OnTimeThrow += () =>
+        {
+            if (throwComponent.GetHasThrow()) return;
+            fsm.SetBool(IDLE_DONE, true);
+            throwComponent.SetHasThrow(true);
+            Debug.Log("Throw");
+        };
+
+        throwComponent.OnTrashThrown += () =>
+        {
+            fsm.SetBool(THROW_DONE, true);
+            Debug.Log("Trash Thrown");
+        };
+
         zone.OnZoneFound += (_zone) =>
         {
             movement.SetZoneLocation(new Vector3(_zone.transform.position.x,transform.position.y,_zone.transform.position.z));
@@ -82,6 +96,8 @@ public class IA_PNJ_Brain : MonoBehaviour
         {
             fsm.SetBool(IDLE_DONE, true);
             fsm.SetBool(PATROL_DONE, false);
+            fsm.SetBool(THROW_DONE, false);
+            Debug.Log("Idle Done");
 
         };
 

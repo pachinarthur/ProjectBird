@@ -6,7 +6,8 @@ using UnityEngine;
 public class IA_PNJ_IdleComponent : MonoBehaviour
 {
     public event Action OnTimerElapsed = null;
-    [SerializeField] float timeMin = 0.5f, timeMax = 3, waitinTime = 0, currenttime = 0;
+    public event Action OnTimeThrow = null;
+    [SerializeField] float timeMin = 0.5f, timeMax = 3, waitinTime = 0, currenttime = 0, ThrowTime = 0;
     [SerializeField] bool start = false;
     // Start is called before the first frame update
     private void Start()
@@ -25,6 +26,10 @@ public class IA_PNJ_IdleComponent : MonoBehaviour
     float UpdateTime(float _time, float _timeMax)
     {
         _time += Time.deltaTime;
+        if(_time >= ThrowTime)
+        {
+            OnTimeThrow?.Invoke();
+        }
         if (_time >= _timeMax)
         {
             OnTimerElapsed?.Invoke();
@@ -36,11 +41,13 @@ public class IA_PNJ_IdleComponent : MonoBehaviour
     public void StartTime()
     {
         start = true;
+
     }
 
     public void InitTime()
     {
         waitinTime = UnityEngine.Random.Range(timeMin, timeMax);
+        ThrowTime = waitinTime/2;
     }
 
     void ResetTime()
