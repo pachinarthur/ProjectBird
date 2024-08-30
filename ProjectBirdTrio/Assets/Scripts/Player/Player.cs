@@ -44,9 +44,9 @@ public class Player : MonoBehaviour
         isFlying = movement.IsFlying;
         if (!isFlying && !movement.IsSprinting && !isLanding)
             RecoverStamina();
-        else if (isFlying && !movement.IsSprinting)
+        else if (isFlying)
             DrainStamina(StaminaDrainRate);
-        if (movement.IsSprinting)
+        if (movement.IsSprinting && Movement.IsMoving || movement.IsSprinting && movement.IsMovingInAir)
             DrainStamina(staminaDrainUse);
     }
 

@@ -24,6 +24,8 @@ public class MovementCompo : MonoBehaviour
     [SerializeField] bool isFlyUp = false;
     [SerializeField] bool isSprinting = false;
     [SerializeField] bool outStamina = false;
+    [SerializeField] bool isMoving = false;
+    [SerializeField] bool isMovingInAir = false;
 
     [SerializeField] float currentHeight = 0;
     [SerializeField] float minFlyHeight = 2f;
@@ -39,6 +41,8 @@ public class MovementCompo : MonoBehaviour
     public bool IsLanding => isLanding;
     public bool IsTakeOff => isTakeOff;
     public bool IsSprinting => isSprinting; 
+    public bool IsMoving => isMoving;
+    public bool IsMovingInAir => isMovingInAir;
 
     void Start()
     {
@@ -84,8 +88,13 @@ public class MovementCompo : MonoBehaviour
 
     private void FlyMove()
     {
-        Vector2 _flyDir = player.Input.FlyMove.ReadValue<Vector2>();        
-
+        Vector2 _flyDir = player.Input.FlyMove.ReadValue<Vector2>();
+        if (_flyDir == null)
+        {
+            isMovingInAir = false;
+            return;
+        }
+        isMovingInAir = true;
         transform.position += transform.forward * _flyDir.y * speed * Time.deltaTime;
         transform.position += transform.right * _flyDir.x * speed * Time.deltaTime;
     }
@@ -187,10 +196,14 @@ public class MovementCompo : MonoBehaviour
     void Move()
     {
         if (!player) return;
-        Vector2 _moveDir = player.Input.Move.ReadValue<Vector2>();
+        Vector2 _moveDir = player.Input.Move.ReadValue<Vector2>();        
         player.Animations.UpdateForwardAnimatorParam(_moveDir.y);
-        if (_moveDir.y < 0) return;
-
+        if (_moveDir.y <= 0)
+        {
+            isMoving = false;
+            return;
+        }
+        isMoving = true;
         transform.position += transform.forward * _moveDir.y * speed * Time.deltaTime;
 
         //transform.position += transform.right * _moveDir.x * moveSpeed * Time.deltaTime;
@@ -293,6 +306,18 @@ public class MovementCompo : MonoBehaviour
                 isLanding = false;
                 outStamina = false;
                 //isFlying = false;
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision)      //Contact au sol
+    {
+        if (collision.gameObject.layer == groundLayer)
+        {
+            {
+                //StartFlying();
+                //player.Input.SwitchToFlyMode();
+                //isFlying = true;
             }
         }
     }

@@ -63,10 +63,10 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
         //canEat = false;
         //allSeeds.Clear();
 
-        SeedMechanics seed = _other.GetComponent<SeedMechanics>();
-        if (seed != null && allSeeds.Contains(seed))
+        SeedMechanics _seed = _other.GetComponent<SeedMechanics>();
+        if (_seed != null && allSeeds.Contains(_seed))
         {
-            allSeeds.Remove(seed);
+            allSeeds.Remove(_seed);
             SortByClosest();
         }
     }
