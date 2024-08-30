@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pickup Mechanics
 {
-
+    [SerializeField] Player playerRef = null;
     [SerializeField] bool canPoop = false;
     //[SerializeField] bool canEat = false;
     [SerializeField] int poopMeter = 0;
@@ -21,6 +21,7 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
     // Start is called before the first frame update
     void Start()
     {
+        playerRef = GetComponent<Player>();
         poopBirdRef = GetComponent<PoopBirdMechanic>();
         poopBirdRef.decrementPoopValue += DecrementPoop;
 }
@@ -75,6 +76,7 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
     {
         if (closestSeeds != null)
         {
+            playerRef.Animations.UpdatePickupAnimatorParam(true);
             SeedMechanics _seedToRemove = closestSeeds;
             _seedToRemove.gameObject.transform.localScale = Vector3.zero;
             poopMeter += 1;
@@ -87,7 +89,12 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
             //closestSeeds = allSeeds[0];
             //allSeeds.Remove(closestSeeds);
             //canEat = false;
+            Invoke("StopPickupAnimation", 0.5f);
         }
+    }
+    void StopPickupAnimation()          //Triche timer
+    {
+        playerRef.Animations.UpdatePickupAnimatorParam(false);
     }
 
     public void OnCollectSeed(InputAction.CallbackContext context)

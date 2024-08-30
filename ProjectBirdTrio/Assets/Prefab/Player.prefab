@@ -323,7 +323,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2679624968993453297}
   - component: {fileID: 7845408306332401810}
-  - component: {fileID: 8245919164573639427}
   - component: {fileID: 7785243310405830756}
   - component: {fileID: 3316181400336090191}
   - component: {fileID: 3488403106048265828}
@@ -376,28 +375,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 0}
   animDamping: 0.07
---- !u!114 &8245919164573639427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4672165094142941418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f22241eca3b48947b7e94e06175b498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seedMecha: {fileID: 0}
-  playerRef: {fileID: 0}
-  projectileRef: {fileID: 306688673870109771, guid: e05026671b4e4dc45afafc81aa815ced, type: 3}
-  canAttack: 0
-  isLanding: 0
-  mainCamera: {fileID: 1242279769882631016}
-  aimCamera: {fileID: 3105754960820170394}
-  movementComponent: {fileID: 0}
-  cinemachineBrain: {fileID: 0}
-  transitionTime: 1
 --- !u!114 &7785243310405830756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,9 +420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbb5d3fad4a56f4380c72dfe237738b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRef: {fileID: 0}
   canPoop: 0
   poopMeter: 0
-  allSeeds: []
   closestSeeds: {fileID: 0}
   poopBirdRef: {fileID: 0}
 --- !u!95 &3488403106048265828
@@ -631,6 +608,7 @@ MonoBehaviour:
   input: {fileID: 0}
   animations: {fileID: 0}
   isFlying: 0
+  isLanding: 0
   stamina: 100
   maxStamina: 100
   staminaDrainRate: 5

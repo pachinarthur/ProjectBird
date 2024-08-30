@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GarbageManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GarbageManager : MonoBehaviour
     [SerializeField] bool cantGetOtherCollectible = false; //s'active tout seul quand tu a rammasé un déchet
     [SerializeField] bool canDepositCollectible = false; //s'active tout seul quand tu es proche d'une poubelle
     [SerializeField] int score = 0;
+
+    public int Score => score;
     // Start is called before the first frame update
     void Start()
     {
