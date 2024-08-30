@@ -8,11 +8,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pickup Mechanics
 {
-    [SerializeField] Player playerRef = null;
+
     [SerializeField] bool canPoop = false;
     //[SerializeField] bool canEat = false;
     [SerializeField] int poopMeter = 0;
-    [SerializeField] List<SeedMechanics> allSeeds = null;
+    //[SerializeField] List<SeedMechanics> allSeeds = null;
     [SerializeField] SeedMechanics closestSeeds = null;
     [SerializeField] PoopBirdMechanic poopBirdRef = null;
 
@@ -22,14 +22,13 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
     void Start()
     {
         poopBirdRef = GetComponent<PoopBirdMechanic>();
-        playerRef = GetComponent<Player>();
         poopBirdRef.decrementPoopValue += DecrementPoop;
 }
-    void SortByClosest()
-    {
-        allSeeds = allSeeds.OrderBy(_x => Vector3.Distance(transform.position, _x.transform.position)).ToList();
-        closestSeeds = allSeeds.FirstOrDefault();
-    }
+    //void SortByClosest()
+    //{
+    //    allSeeds = allSeeds.OrderBy(_x => Vector3.Distance(transform.position, _x.transform.position)).ToList();
+    //    closestSeeds = allSeeds.FirstOrDefault();
+    //}
 
     // Update is called once per frame
     void Update()
@@ -51,36 +50,38 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
         //closestSeeds = allSeeds[0];
         //canEat = true;
 
-        SeedMechanics seed = _other.GetComponent<SeedMechanics>();          // Taf revisité
-        if (seed != null)
-        {
-            allSeeds.Add(seed);
-            SortByClosest();
-        }
+        //SeedMechanics seed = _other.GetComponent<SeedMechanics>();          // Taf revisité
+        //if (seed != null)
+        //{
+        //    allSeeds.Add(seed);
+        //   // SortByClosest();
+        //}
+       closestSeeds = _other.GetComponent<SeedMechanics>();          // Taf revisité v2 (corentin)
     }
     private void OnTriggerExit(Collider _other)
     {
         //canEat = false;
         //allSeeds.Clear();
 
-        SeedMechanics seed = _other.GetComponent<SeedMechanics>();
-        if (seed != null && allSeeds.Contains(seed))
-        {
-            allSeeds.Remove(seed);
-            SortByClosest();
-        }
+        //  SeedMechanics seed = _other.GetComponent<SeedMechanics>();
+        // if (seed != null && allSeeds.Contains(seed))
+        //{
+        //    allSeeds.Remove(seed);
+        //   // SortByClosest();
+        //}
+        closestSeeds = null;
     }
     public void EatSeed()
     {
         if (closestSeeds != null)
         {
-            playerRef.Animations.UpdatePickupAnimatorParam(true);
             SeedMechanics _seedToRemove = closestSeeds;
             _seedToRemove.gameObject.transform.localScale = Vector3.zero;
             poopMeter += 1;
-            allSeeds.Remove(_seedToRemove);
-            closestSeeds = allSeeds.Count > 0 ? allSeeds[0] : null;
-            Invoke("StopPickupAnimation", 0.5f);
+          //  allSeeds.Remove(_seedToRemove);
+            //closestSeeds = allSeeds.Count > 0 ? allSeeds[0] : null;
+
+            closestSeeds = null;
 
             //closestSeeds.gameObject.transform.localScale = Vector3.zero;
             //closestSeeds = allSeeds[0];
@@ -88,14 +89,10 @@ public class PlayerSeedMechanics : MonoBehaviour                    // A.K.A Pic
             //canEat = false;
         }
     }
-    void StopPickupAnimation()          //Triche timer
-    {
-        playerRef.Animations.UpdatePickupAnimatorParam(false);
-    }
 
-    public void OnCollectSeed(InputAction.CallbackContext _context)
+    public void OnCollectSeed(InputAction.CallbackContext context)
     {
-        if (_context.performed)
+        if (context.performed)
         {
             EatSeed();
         }
