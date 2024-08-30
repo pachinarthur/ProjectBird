@@ -36,7 +36,7 @@ public class Zone_ZoneBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 12)//12 for NPC
         {
             Debug.Log("NPC enter Zone");  
             //On ajoute le npc a la zone
@@ -47,7 +47,7 @@ public class Zone_ZoneBase : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 12)
         {
             Debug.Log("NPC exit Zone");
             //On retire le npc de la zone
