@@ -133,7 +133,7 @@ public class InputCompo : MonoBehaviour
             Debug.LogError("PoopBirdMechanic is not assigned or initialized!");
         }
 
-        poop.performed += poopBirdMechanic.OnPoop; 
+        poop.performed += poopBirdMechanic.OnPoop;
     }
     public void SwitchToGroundMode()
     {
