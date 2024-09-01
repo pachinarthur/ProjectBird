@@ -47,7 +47,6 @@ public class IA_PNJ_Brain : MonoBehaviour
     void Init()
     {
         
-        movement = GetComponent<IA_PNJ_MovementComponent>();
         patrol = GetComponent<IA_PNJ_PatrolComponent>();
         throwComponent = GetComponent<IA_PNJ_ThrowComponent>();
         idle = GetComponent<IA_PNJ_IdleComponent>();
@@ -78,18 +77,16 @@ public class IA_PNJ_Brain : MonoBehaviour
             if (throwComponent.GetHasThrow()) return;
             fsm.SetBool(IDLE_DONE, true);
             throwComponent.SetHasThrow(true);
-            Debug.Log("Throw");
         };
 
         throwComponent.OnTrashThrown += () =>
         {
             fsm.SetBool(THROW_DONE, true);
-            Debug.Log("Trash Thrown");
         };
 
         zone.OnZoneFound += (_zone) =>
         {
-            movement.SetZoneLocation(new Vector3(_zone.transform.position.x,transform.position.y,_zone.transform.position.z));
+            movement.SetZoneLocation(new Vector3(_zone.transform.position.x, _zone.transform.position.x, _zone.transform.position.z));
         };
 
         idle.OnTimerElapsed += () =>
@@ -97,11 +94,10 @@ public class IA_PNJ_Brain : MonoBehaviour
             fsm.SetBool(IDLE_DONE, true);
             fsm.SetBool(PATROL_DONE, false);
             fsm.SetBool(THROW_DONE, false);
-            Debug.Log("Idle Done");
 
         };
 
-        
+        fsm.enabled = true;
 
     }
 
@@ -109,7 +105,9 @@ public class IA_PNJ_Brain : MonoBehaviour
     {
         
         fsm = GetComponent<Animator>();
-        fsm.enabled = true;
+
+        movement = GetComponent<IA_PNJ_MovementComponent>();
+        movement.enabled = true;
         behaviours = fsm.GetBehaviours<IA_PNJ_BaseBehaviour>();
         int _size = behaviours.Length;
         for (int i = 0; i < _size; i++)

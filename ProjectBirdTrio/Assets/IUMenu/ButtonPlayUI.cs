@@ -33,8 +33,8 @@ public class ButtonPlayUI : MonoBehaviour
     {
         Debug.Log("PlayGame");
         imageFadeUI.SetVisilibity();
-        //SceneManager.LoadScene(nomScene, LoadSceneMode.Single);
         StartCoroutine(menuFadeUI.FadeCanvaGroup(canvasGroup,canvasGroup.alpha,0));
+        SceneManager.LoadScene(nomScene, LoadSceneMode.Single);
         ;
     }
 }

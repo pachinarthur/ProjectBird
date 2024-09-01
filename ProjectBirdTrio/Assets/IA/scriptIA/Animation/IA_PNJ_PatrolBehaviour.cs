@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class IA_PNJ_PatrolBehaviour : IA_PNJ_BaseBehaviour

@@ -7,7 +7,7 @@ using UnityEngine;
 public class IA_PNJ_ZoneComponent : MonoBehaviour
 {
     public event Action<Zone_ZoneBase> OnZoneFound = null;
-    public List<Zone_ZoneBase> zoneIslands = new List<Zone_ZoneBase>();
+    //public List<Zone_ZoneBase> zoneIslands = new List<Zone_ZoneBase>();
     [SerializeField] Zone_ZoneBase zoneToGo = null;
     public Zone_ZoneBase ZoneToGo => zoneToGo;
     // Start is called before the first frame update
@@ -24,15 +24,15 @@ public class IA_PNJ_ZoneComponent : MonoBehaviour
 
     void Init()
     {
-       zoneIslands = FindObjectsOfType<Zone_ZoneBase>().ToList();
+       //zoneIslands = FindObjectsOfType<Zone_ZoneBase>().ToList();
     }
 
     public void GetRandomZone()
     {
-        if (zoneIslands.Count == 0) return;
-        int index = UnityEngine.Random.Range(0, zoneIslands.Count);
-        zoneToGo = zoneIslands[index];
-        if (IsZoneFull(zoneToGo)) return;
+        //if (zoneIslands.Count == 0) return;
+        //int index = UnityEngine.Random.Range(0, zoneIslands.Count);
+        //zoneToGo = zoneIslands[index];
+        //if (IsZoneFull(zoneToGo)) return;
         SetZoneToGo(zoneToGo);
         OnZoneFound?.Invoke(zoneToGo);
     }

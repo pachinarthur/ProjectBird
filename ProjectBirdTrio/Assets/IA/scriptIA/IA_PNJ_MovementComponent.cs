@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.HID;
 using static Cinemachine.CinemachineTargetGroup;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,6 +20,7 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     [SerializeField] Vector3 zoneLocation = Vector3.zero;
 
     [SerializeField] NavMeshAgent agent = null;
+    NavMeshHit hit;
     [SerializeField] List<Vector3> path = new List<Vector3>();
     [SerializeField] int pathIndex = 0;
 
@@ -31,12 +35,21 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
     }
 
     void Init()
     {
         agent = GetComponent<NavMeshAgent>();
+        //if (NavMesh.SamplePosition(agent.transform.position, out hit, 1.0f, NavMesh.AllAreas))
+        //{
+        //    // Déplace l'agent sur la position trouvée sur le NavMesh
+        //    agent.Warp(hit.position);
+        //    Debug.Log("Agent repositionné sur le NavMesh à la position: " + hit.position);
+        //    Debug.Log(agent.isActiveAndEnabled);
+        //    Debug.Log(agent.isOnNavMesh);
+
+        //}
     }
 
     // Update is called once per frame
@@ -53,6 +66,7 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
         Vector3 _target = (moveZone) ? zoneLocation : patrolLocation;
         if (!agent) return;
         NavMeshPath _path = new NavMeshPath();
+        agent.destination = _target;
         if (!agent.CalculatePath(_target, _path)) return;
         path.Clear();
         path = _path.corners.ToList();

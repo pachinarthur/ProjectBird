@@ -13,7 +13,7 @@ public class GarbageCollectible : MonoBehaviour
     void Start()
     {
         //script des déchets au sol
-        itemToMove = Instantiate(garbageItem, new Vector3(transform.position.x, transform.position.y + 1,transform.position.z), Quaternion.identity);
+        //itemToMove = Instantiate(garbageItem, new Vector3(transform.position.x, transform.position.y + 1,transform.position.z), Quaternion.identity);
     }
 
     // Update is called once per frame

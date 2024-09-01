@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GarbageManager : MonoBehaviour
@@ -25,13 +26,14 @@ public class GarbageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Grab();
-        Deposit();
+        
     }
     private void OnTriggerEnter(Collider _other)
     {
         garbageCollectible = _other.gameObject.GetComponent<GarbageCollectible>();
         garbageTrash = _other.gameObject.GetComponent<GarbageTrash>();
+        Debug.Log(garbageCollectible);
+        Debug.Log(garbageTrash);
         if (garbageCollectible != null) canCollect = true;
         if (garbageTrash != null) canDepositCollectible = true;
     }
@@ -42,9 +44,9 @@ public class GarbageManager : MonoBehaviour
         canCollect = false;
         canDepositCollectible = false;
     }
-    void Grab() //a faire en input
+    public void Grab(InputAction.CallbackContext context) //a faire en input
     {
-        if (inputGrab == true && canCollect == true && garbageCollectible != null && cantGetOtherCollectible == false)
+        if (canCollect == true && garbageCollectible != null && cantGetOtherCollectible == false)
         {
             GarbageCollectible _toDestroy = garbageCollectible;
             garbageCollectible = null;
@@ -54,19 +56,18 @@ public class GarbageManager : MonoBehaviour
             garbageCollected.gameObject.SetActive(true);
             cantGetOtherCollectible = true;
         }
-        if (inputGrab == true && canCollect == true && garbageCollectible != null && cantGetOtherCollectible == true) //a retirer quand les inputs seront mis
+        if (canCollect == true && garbageCollectible != null && cantGetOtherCollectible == true) //a retirer quand les inputs seront mis
             print("i can't eat i alredy have something in my bec je sais pas comment on dit bec en anglais deso");
-        inputGrab = false;
     }
-    void Deposit()
+    public void Deposit(InputAction.CallbackContext context)
     {
-        if(inputDeposit == true && cantGetOtherCollectible == true && canDepositCollectible == true)
+        if(cantGetOtherCollectible == true && canDepositCollectible == true)
         {
             garbageCollected.gameObject.SetActive(false);
             cantGetOtherCollectible = false;
             score += 1;
         }
-        if (inputDeposit == true && cantGetOtherCollectible == false && canDepositCollectible == true)
+        if (cantGetOtherCollectible == false && canDepositCollectible == true)
             print("i can't place something in the trash bc i don't have anything pls give me something to get like that i can trow it in this trash i don't like when i can't place something in a trash");
     }
 
