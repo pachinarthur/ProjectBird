@@ -38,7 +38,6 @@ public class Zone_ZoneBase : MonoBehaviour
     {
         if (other.gameObject.layer == 12)//12 for NPC
         {
-            Debug.Log("NPC enter Zone");  
             //On ajoute le npc a la zone
             AddNpc(other.gameObject);
         }
@@ -49,7 +48,6 @@ public class Zone_ZoneBase : MonoBehaviour
     {
         if (other.gameObject.layer == 12)
         {
-            Debug.Log("NPC exit Zone");
             //On retire le npc de la zone
             RemoveNpc(other.gameObject);
         }

@@ -7,10 +7,12 @@ using UnityEngine.Windows;
 public class InputCompo : MonoBehaviour
 {
     [SerializeField] PlayerSeedMechanics playerSeedMechanics = null;
+    [SerializeField] PauseMenuUI pauseMenuUI = null;
 
     [SerializeField] PlayerControls controls = null;
     [SerializeField] Player player = null;
     [SerializeField] PoopBirdMechanic poopBirdMechanic = null;
+    [SerializeField] GarbageManager garbageManager = null;
 
     [SerializeField] InputAction move = null;
     [SerializeField] InputAction rotate = null;
@@ -20,8 +22,11 @@ public class InputCompo : MonoBehaviour
     [SerializeField] InputAction forceLanding = null;
     [SerializeField] InputAction flyUp = null;
     [SerializeField] InputAction pickup = null;
+    [SerializeField] InputAction drop = null;
     [SerializeField] InputAction aim = null;
     [SerializeField] InputAction poop = null;
+
+    [SerializeField] InputAction pause = null;
 
     [SerializeField] InputAction sprintAir = null;
     [SerializeField] InputAction sprintGround = null;
@@ -36,7 +41,9 @@ public class InputCompo : MonoBehaviour
     public InputAction SprintAir => sprintAir;
     public InputAction SprintGround => sprintGround;
     public InputAction Pickup => pickup;
+    public InputAction Drop => drop;
     public InputAction Poop => poop;
+    public InputAction Pause => pause;
 
     private void Awake()
     {
@@ -44,6 +51,7 @@ public class InputCompo : MonoBehaviour
         player = GetComponent<Player>();
         playerSeedMechanics = GetComponent<PlayerSeedMechanics>();
         poopBirdMechanic = GetComponent<PoopBirdMechanic>();
+        garbageManager = GetComponent<GarbageManager>();
     }
 
     private void OnEnable()
@@ -68,8 +76,12 @@ public class InputCompo : MonoBehaviour
         sprintGround = controls.Ground.Sprint;
         sprintAir = controls.Fly.Sprint;
         pickup = controls.Ground.PickUp;
+        drop = controls.Ground.Drop;
+
         aim = controls.Fly.Aim;
         poop = controls.Fly.Poop;
+
+        pause = controls.Ground.Pause;
 
         move.Enable();
         rotate.Enable();
@@ -81,10 +93,14 @@ public class InputCompo : MonoBehaviour
         sprintGround.Enable();
         sprintAir.Enable();
         pickup.Enable();
+        drop.Enable();
         poop.Enable();
+        pause.Enable();
 
         fly.performed += player.Movement.FlyMode;
-        pickup.performed += playerSeedMechanics.OnCollectSeed;
+        pickup.performed += garbageManager.Grab;
+        drop.performed += garbageManager.Deposit;
+        pause.performed += pauseMenuUI.SetVisibility;
 
         aim.Enable();
     }
@@ -98,6 +114,9 @@ public class InputCompo : MonoBehaviour
         flyMove.Disable();
         flyRotate.Disable();
         aim.Disable();
+        poop.Disable();
+        pause.Disable();
+        drop.Disable();
 
         fly.performed -= player.Movement.FlyMode;
         //forceLanding.performed -= player.LandMode;
