@@ -20,7 +20,7 @@ public class MovementCompo : MonoBehaviour
 
     [SerializeField] bool isTakeOff = false;
     [SerializeField] bool isFlying = false;
-    [SerializeField] bool isLanding = false;
+    [SerializeField] public bool isLanding = false;
     [SerializeField] bool isFlyUp = false;
     [SerializeField] bool isSprinting = false;
     [SerializeField] bool outStamina = false;
