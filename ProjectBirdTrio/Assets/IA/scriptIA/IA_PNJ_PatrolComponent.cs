@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class IA_PNJ_PatrolComponent : MonoBehaviour
 {
@@ -31,6 +32,16 @@ public class IA_PNJ_PatrolComponent : MonoBehaviour
         Vector2 _pos = UnityEngine.Random.insideUnitCircle;
         targetLocation = transform.position + new Vector3(_pos.x, 0, _pos.y) * range;
         bool isInZone = brain.Zone.IsPositionInsideZone(targetLocation);
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(targetLocation, out hit, 1, NavMesh.AllAreas))
+        {
+            Debug.Log("La position est sur le NavMesh.");
+        }
+        else
+        {
+            FindRandomLocationInRange();
+            Debug.Log("La position n'est pas sur le NavMesh.");
+        }
         if (!isInZone)
         {
             FindRandomLocationInRange();

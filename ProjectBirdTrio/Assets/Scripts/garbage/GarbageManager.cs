@@ -32,8 +32,6 @@ public class GarbageManager : MonoBehaviour
     {
         garbageCollectible = _other.gameObject.GetComponent<GarbageCollectible>();
         garbageTrash = _other.gameObject.GetComponent<GarbageTrash>();
-        Debug.Log(garbageCollectible);
-        Debug.Log(garbageTrash);
         if (garbageCollectible != null) canCollect = true;
         if (garbageTrash != null) canDepositCollectible = true;
     }

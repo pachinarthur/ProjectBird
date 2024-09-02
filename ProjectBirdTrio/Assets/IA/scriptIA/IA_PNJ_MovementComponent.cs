@@ -18,6 +18,7 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     [SerializeField] bool canMove = false, moveZone =false;
     [SerializeField] Vector3 patrolLocation = Vector3.zero;
     [SerializeField] Vector3 zoneLocation = Vector3.zero;
+    IA_PNJ_PatrolComponent patrol = null;
 
     [SerializeField] NavMeshAgent agent = null;
     NavMeshHit hit;
@@ -41,6 +42,7 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
     void Init()
     {
         agent = GetComponent<NavMeshAgent>();
+        patrol = GetComponent<IA_PNJ_PatrolComponent>();
         //if (NavMesh.SamplePosition(agent.transform.position, out hit, 1.0f, NavMesh.AllAreas))
         //{
         //    // Déplace l'agent sur la position trouvée sur le NavMesh
@@ -67,7 +69,10 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
         if (!agent) return;
         NavMeshPath _path = new NavMeshPath();
         agent.destination = _target;
+        
         if (!agent.CalculatePath(_target, _path)) return;
+        Debug.Log(_path.status);
+       
         path.Clear();
         path = _path.corners.ToList();
         pathIndex = 0;
@@ -86,8 +91,9 @@ public class IA_PNJ_MovementComponent : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, path[pathIndex], Time.deltaTime * moveSpeed);
         if (IsAtLocation)
         {
+            
             if (pathIndex >= path.Count - 1)
-            {
+            {   
                 OnTargetReached?.Invoke();
                 return;
             }
