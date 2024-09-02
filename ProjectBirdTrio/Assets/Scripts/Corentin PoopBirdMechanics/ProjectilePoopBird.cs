@@ -31,5 +31,13 @@ public class ProjectilePoopBird : MonoBehaviour
             Destroy(gameObject);
           //  print("egg");
         }
+        
+        if (_other.gameObject.layer == 12)
+        {
+            Destroy(_other.gameObject);
+            Destroy(gameObject);
+          //  print("egg");
+        }
+
     }
 }
